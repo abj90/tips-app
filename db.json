@@ -1,0 +1,132 @@
+{
+  "posts": [
+    {
+      "type": "FitnessHealthTip",
+      "id": 3004,
+      "title": "FitnessTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text e",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-25T11:19:13.667827Z"
+    },
+    {
+      "type": "InsuranceHealthTip",
+      "id": 3,
+      "title": "InsuranceTip - Lorem Ipsum is simply dummy text of the printing and typesetting indus",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting",
+      "upVotes": 1,
+      "downVotes": 0,
+      "datetime": "2023-05-24T11:19:13.669351Z"
+    },
+    {
+      "type": "PsychoHealthTip",
+      "id": 4001,
+      "title": "PsychoTip: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting indus",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-29T10:49:13.667705Z"
+    },
+    {
+      "type": "PsychoHealthTip",
+      "id": 4010,
+      "title": "PsychoTip: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+      "text": "Lorem Ipsum is simply dummy text of the printing and ty",
+      "upVotes": 1,
+      "downVotes": 0,
+      "datetime": "2023-05-29T11:12:13.668077Z"
+    },
+    {
+      "type": "DoctorHealthTip",
+      "id": 1011,
+      "title": "DoctorTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy tex",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-12T11:19:13.668087Z",
+      "level": "BASIC"
+    },
+    {
+      "type": "InsuranceHealthTip",
+      "id": 2,
+      "title": "InsuranceTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industr",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-18T11:19:13.669344Z"
+    },
+    {
+      "type": "DoctorHealthTip",
+      "id": 1019,
+      "title": "DoctorTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's sta",
+      "text": "Lorem Ipsum is simply dummy text of the printing and",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-28T11:19:13.668458Z",
+      "level": "INTERMEDIATE"
+    },
+    {
+      "type": "FamilyHealthTip",
+      "id": 2000,
+      "title": "FamiliyTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum ",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the ",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-15T11:19:13.666686Z"
+    },
+    {
+      "type": "FamilyHealthTip",
+      "id": 2005,
+      "title": "FamiliyTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ips",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-15T11:19:13.667853Z"
+    },
+    {
+      "type": "FamilyHealthTip",
+      "id": 2007,
+      "title": "FamiliyTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever si",
+      "text": "Lorem Ipsum is simply dummy text of the printing a",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-24T11:19:13.667957Z"
+    },
+    {
+      "type": "FamilyHealthTip",
+      "id": 2016,
+      "title": "FamiliyTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the in",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum h",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-09T11:19:13.668324Z"
+    },
+    {
+      "type": "InsuranceHealthTip",
+      "id": 1,
+      "title": "InsuranceTip - Lorem Ipsum is simply dummy text of the printing and typesetting",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-26T11:19:13.669320Z"
+    },
+    {
+      "type": "InsuranceHealthTip",
+      "id": 4,
+      "title": "InsuranceTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ips",
+      "upVotes": 0,
+      "downVotes": 0,
+      "datetime": "2023-05-29T11:08:13.669358Z"
+    },
+    {
+      "type": "PsychoHealthTip",
+      "id": 4003,
+      "title": "PsychoTip: Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+      "upVotes": 1,
+      "downVotes": 0,
+      "datetime": "2023-05-29T10:55:13.667793Z"
+    }
+  ]
+}

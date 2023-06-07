@@ -1,0 +1,23 @@
+<section>
+  <div class="card-container">
+    <div class="card" [routerLink]="['/health-tip', data.id]">
+      <div
+        class="overlay-card-bg"
+        [ngStyle]="{ backgroundColor: data.cardColor }"
+      ></div>
+      <h2 class="card-title">{{ data.title }}</h2>
+      <div class="card-content">
+        <div class="content-container">
+          <div class="vote-container">
+            <i class="fa-solid fa-thumbs-up icon"></i>
+            <span>{{ data.upVotes }}</span>
+          </div>
+          <div class="vote-container">
+            <i class="fa-solid fa-thumbs-down icon"></i>
+            <span>{{ data.downVotes }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+<section class="healt-tips-list-section">
+  <!--  <mat-spinner *ngIf="loading$ | async"></mat-spinner> -->
+
+  <div class="healt-tips-list-container">
+    <table
+      mat-table
+      [dataSource]="dataSource$"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="date">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by date"
+        >
+          Date
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.datetime | date : "dd/MM/yyyy" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="text">
+        <th mat-header-cell *matHeaderCellDef>Text</th>
+        <td mat-cell *matCellDef="let element">{{ element.text }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="upVotes">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by upVotes"
+        >
+          Up Votes
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.upVotes }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="downVotes">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by downVotes"
+        >
+          Down Votes
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.downVotes }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+@import "_variables";
+
+.not-found-section {
+  width: 100%;
+  height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary-color;
+
+  .content {
+    font-size: 80px;
+    line-height: 2;
+    font-weight: 600;
+    color: $white-color;
+  }
+}

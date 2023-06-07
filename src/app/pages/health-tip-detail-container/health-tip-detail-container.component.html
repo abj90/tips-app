@@ -1,0 +1,36 @@
+<section class="health-tip-detail-section">
+  <div *ngIf="loading$ | async; else dataLoaded">
+    <loading></loading>
+  </div>
+  <ng-template #dataLoaded>
+    <div class="health-tip-detail-container">
+      <div (click)="goBack()" class="go-back-btn">
+        <i class="fa-solid fa-arrow-left icon"></i>
+      </div>
+      <div class="detail-card" *ngIf="selectedTip">
+        <h4 class="title">{{ selectedTip.title }}</h4>
+        <div class="content">
+          <p class="text">{{ selectedTip.text }}</p>
+          <div class="votes-results-container">
+            <div class="vote-container">
+              <i class="fa-solid fa-thumbs-up icon"></i>
+              <span>{{ selectedTip.upVotes }}</span>
+            </div>
+            <div class="vote-container">
+              <i class="fa-solid fa-thumbs-down icon"></i>
+              <span>{{ selectedTip.downVotes }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="btn-container">
+          <button (click)="voteUp(selectedTip.id)" class="btn-primary">
+            Vote Up
+          </button>
+          <button (click)="voteDown(selectedTip.id)" class="btn-primary">
+            Vote Down
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>

@@ -1,0 +1,171 @@
+@import "_variables";
+
+.health-tip-detail-section {
+  width: 100%;
+  height: calc(100vh - 200px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .health-tip-detail-container {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .go-back-btn {
+      margin-right: auto;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 2%;
+
+      .icon {
+        font-size: 30px;
+        color: $secondary-color;
+      }
+
+      .arrow-left-icon {
+        width: 25px;
+      }
+    }
+
+    .detail-card {
+      margin-top: 2%;
+      width: 500px;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      box-shadow: (0 0 40px rgba(0, 0, 0, 0.1));
+      color: $dark-color;
+
+      .title {
+        line-height: 1.1;
+        font-weight: 600;
+        color: inherit;
+        margin: 0;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .content {
+        font-size: 1rem;
+        line-height: 1.5;
+        color: inherit;
+        padding: 10px 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+
+        .text {
+          text-align: center;
+        }
+
+        .votes-results-container {
+          width: 140px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+
+          .vote-container {
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 2;
+            .icon {
+              font-size: 30px;
+            }
+          }
+        }
+      }
+
+      .btn-container {
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .health-tip-detail-section {
+    height: 100%;
+
+    .health-tip-detail-container {
+      margin-top: 5%;
+
+      .detail-card {
+        width: 90%;
+        margin-bottom: 20px;
+        margin-top: 5%;
+
+        .title {
+          padding: 15px;
+          font-size: 18px;
+          text-align: justify;
+          text-justify: inter-word;
+        }
+
+        .content {
+          padding: 15px;
+        }
+
+        .btn-container {
+          padding: 15px;
+
+          .btn-primary {
+            &:last-child {
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+  .health-tip-detail-section {
+    .health-tip-detail-container {
+      .go-back-btn {
+        margin-right: auto;
+        cursor: pointer;
+      }
+
+      .detail-card {
+        width: 70%;
+        margin-bottom: 20px;
+        margin-top: 5%;
+
+        .title {
+          padding: 15px;
+        }
+
+        .content {
+          padding: 15px;
+        }
+
+        .btn-container {
+          padding: 15px;
+
+          .btn-primary {
+            &:last-child {
+              margin-top: 20px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.fa-thumbs-down {
+  padding-top: 7px;
+}

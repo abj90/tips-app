@@ -14,4 +14,5 @@ export const enum ColumnDef {
   TEXT = 'text',
   UP_VOTES = 'upVotes',
   DOWN_VOTES = 'downVotes',
+  ACTIONS = 'actions',
 }

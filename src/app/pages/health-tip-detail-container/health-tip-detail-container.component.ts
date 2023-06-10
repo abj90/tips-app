@@ -6,10 +6,7 @@ import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
 import { AppState, IHealthTip } from 'src/common/interfaces';
-import {
-  loadHealthTipDetailActions,
-  voteHealthTipActions,
-} from 'src/state/actions/health-tips.actions';
+import { loadHealthTipDetailActions } from 'src/state/actions/health-tips.actions';
 import {
   selectLoading,
   selectTipDetail,
@@ -77,17 +74,5 @@ export class HealthTipDetailContainerComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
-  }
-
-  voteUp(tipId: number): void {
-    this.store.dispatch(
-      voteHealthTipActions.voteUP({ tipId, vote: voteType.UP })
-    );
-  }
-
-  voteDown(tipId: number): void {
-    this.store.dispatch(
-      voteHealthTipActions.voteDown({ tipId, vote: voteType.DOWN })
-    );
   }
 }

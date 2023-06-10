@@ -2,10 +2,14 @@ import { createReducer, on } from '@ngrx/store';
 import { IHealthTip, IHealthTipsState } from 'src/common/interfaces';
 import {
   ApiErrorAction,
+  loadCreateHealthActions,
   loadHealthTipDetailActions,
   loadHealthTipsActions,
+  loadRemoveHealthActions,
+  loadedCreateHealthActions,
   loadedHealthTipDetailActions,
   loadedHealthTipsActions,
+  loadedRemoveHealthActions,
   loadedVoteHealthTipActions,
   voteHealthTipActions,
 } from '../actions/health-tips.actions';
@@ -63,6 +67,31 @@ export const healthTipsReducer = createReducer(
       selectedTip: updatedTip,
     };
   }),
+  // Remove
+  on(loadRemoveHealthActions.loadRemoveHealthTip, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(loadedRemoveHealthActions.removeHealthTip, (state, { removedTipId }) => {
+    return {
+      ...state,
+      loading: false,
+      allTips: state.allTips.filter(
+        ({ id }: IHealthTip) => id !== removedTipId
+      ),
+    };
+  }),
+  // Create
+  on(loadCreateHealthActions.loadCreateHealthTip, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(loadedCreateHealthActions.createHealthTip, (state, { newTip }) => {
+    return {
+      ...state,
+      loading: false,
+      allTips: [...state.allTips, { ...newTip }],
+    };
+  }),
+  // handle error
   on(ApiErrorAction.apiError, (state, { error }) => {
     return { ...state, error, loading: false };
   })

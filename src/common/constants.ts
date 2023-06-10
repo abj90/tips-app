@@ -21,3 +21,10 @@ export const healthTipParams = {
   _sort: '',
   _order: '',
 };
+
+export const KEYUP_EVENT = 'keyup';
+export const NEW_TIP = {
+  id: '',
+  title: '',
+  text: '',
+};

@@ -2,6 +2,7 @@ import { createActionGroup, props } from '@ngrx/store';
 import { voteType } from 'src/common/enums';
 import { IHealthTip, IHealthTipParams } from 'src/common/interfaces';
 
+// Get list of health tip
 export const loadHealthTipsActions = createActionGroup({
   source: 'Health Tips',
   events: {
@@ -16,6 +17,7 @@ export const loadedHealthTipsActions = createActionGroup({
   },
 });
 
+// Vote health tip
 export const voteHealthTipActions = createActionGroup({
   source: 'vote Health Tip',
   events: {
@@ -46,6 +48,36 @@ export const loadedHealthTipDetailActions = createActionGroup({
   },
 });
 
+// Remove
+export const loadRemoveHealthActions = createActionGroup({
+  source: 'Remove Health Tip',
+  events: {
+    'Load Remove Health Tip': props<{ tipId: number }>(),
+  },
+});
+
+export const loadedRemoveHealthActions = createActionGroup({
+  source: 'Remove Health Tip',
+  events: {
+    'Remove Health Tip': props<{ removedTipId: number }>(),
+  },
+});
+// Create Tip
+export const loadCreateHealthActions = createActionGroup({
+  source: 'Create Health Tip',
+  events: {
+    'Load Create Health Tip': props<{ newTip: IHealthTip }>(),
+  },
+});
+
+export const loadedCreateHealthActions = createActionGroup({
+  source: 'Create Health Tip',
+  events: {
+    'Create Health Tip': props<{ newTip: IHealthTip }>(),
+  },
+});
+
+// Error loading
 export const ApiErrorAction = createActionGroup({
   source: 'Api Error',
   events: {

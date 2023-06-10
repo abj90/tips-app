@@ -1,12 +1,9 @@
 import { SortOrder } from './enums';
 
 export interface IHealthTip {
-  type: string;
-  id: number;
+  id?: number;
   title: string;
   text: string;
-  upVotes: number;
-  downVotes: number;
   datetime: string;
 }
 

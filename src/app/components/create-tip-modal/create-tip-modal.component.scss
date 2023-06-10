@@ -1,0 +1,31 @@
+.modal-section {
+  height: 100%;
+  min-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  width: 90%;
+  margin: 50px 0px;
+
+  .form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .form-field {
+      width: 100%;
+    }
+
+    .btn-container {
+      width: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+  }
+}

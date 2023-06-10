@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, delay } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, delay, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IHealthTip, IHealthTipParams } from 'src/common/interfaces';
 import { voteType } from 'src/common/enums';
@@ -13,7 +13,6 @@ export class HealthTipsService {
 
   getTips(param: IHealthTipParams): Observable<IHealthTip[]> {
     const params = this.getParams(param);
-    console.log('__service', params);
     return this.http
       .get<IHealthTip[]>(`${environment.baseUrl}/posts`, { params })
       .pipe(delay(1000));
@@ -24,7 +23,6 @@ export class HealthTipsService {
     for (const key in param) {
       let keyValue = param[key as keyof IHealthTipParams];
       if (keyValue !== '') {
-        console.log('___keyValue', keyValue);
         params = params.set(key.toString(), keyValue);
       }
     }
@@ -40,5 +38,23 @@ export class HealthTipsService {
     return this.http
       .put<IHealthTip>(`api/tips/${tipId}/vote/${vote}`, {})
       .pipe(delay(1000));
+  }
+
+  removeTip(tipId: number): Observable<any> {
+    return this.http
+      .delete<any>(`${environment.baseUrl}/posts/${tipId}`)
+      .pipe(delay(1000));
+  }
+
+  createTip(newTip: IHealthTip): Observable<any> {
+    const body = newTip;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    return this.http.post<any>(`${environment.baseUrl}/posts`, body, {
+      headers,
+    });
   }
 }

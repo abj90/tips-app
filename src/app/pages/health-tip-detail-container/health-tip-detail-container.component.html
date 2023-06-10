@@ -1,0 +1,18 @@
+<section class="health-tip-detail-section">
+  <div *ngIf="loading$ | async; else dataLoaded">
+    <loading></loading>
+  </div>
+  <ng-template #dataLoaded>
+    <div class="health-tip-detail-container">
+      <div (click)="goBack()" class="go-back-btn">
+        <i class="fa-solid fa-arrow-left icon"></i>
+      </div>
+      <div class="detail-card" *ngIf="selectedTip">
+        <h4 class="title">{{ selectedTip.title }}</h4>
+        <div class="content">
+          <p class="text">{{ selectedTip.text }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>

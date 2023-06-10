@@ -6,13 +6,15 @@ import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 
 import { AppState, IHealthTip } from 'src/common/interfaces';
-import { loadHealthTipDetailActions } from 'src/state/actions/health-tips.actions';
+import {
+  loadHealthTipDetailActions,
+  loadUpdateHealthActions,
+} from 'src/state/actions/health-tips.actions';
 import {
   selectLoading,
   selectTipDetail,
   selectTipFromStore,
 } from 'src/state/selectors/health-tips.selectors';
-import { voteType } from 'src/common/enums';
 import { ID } from 'src/common/constants';
 
 @Component({
@@ -24,6 +26,7 @@ export class HealthTipDetailContainerComponent implements OnInit {
   public loading$: Observable<boolean> = new Observable();
   public tipId: number;
   public selectedTip: IHealthTip | undefined;
+  public isUpdatedFormVisible: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,6 +73,17 @@ export class HealthTipDetailContainerComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.tipId = +params.get(ID)!;
     });
+  }
+
+  showOrHideTipForm(): void {
+    this.isUpdatedFormVisible = !this.isUpdatedFormVisible;
+  }
+
+  submitForm(updatedTip: IHealthTip): void {
+    this.store.dispatch(
+      loadUpdateHealthActions.loadUpdateHealthTip({ updatedTip })
+    );
+    this.showOrHideTipForm();
   }
 
   goBack(): void {

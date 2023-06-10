@@ -6,12 +6,12 @@ import {
   loadHealthTipDetailActions,
   loadHealthTipsActions,
   loadRemoveHealthActions,
+  loadUpdateHealthActions,
   loadedCreateHealthActions,
   loadedHealthTipDetailActions,
   loadedHealthTipsActions,
   loadedRemoveHealthActions,
-  loadedVoteHealthTipActions,
-  voteHealthTipActions,
+  loadedUpdateHealthActions,
 } from '../actions/health-tips.actions';
 
 export const initialState: IHealthTipsState = {
@@ -40,33 +40,6 @@ export const healthTipsReducer = createReducer(
       return { ...state, loading: false, selectedTip: tip };
     }
   ),
-  //Vote UP/DOWN tip
-  on(voteHealthTipActions.voteDown, (state) => {
-    return { ...state, loading: true };
-  }),
-  on(voteHealthTipActions.voteUP, (state) => {
-    return { ...state, loading: true };
-  }),
-  on(loadedVoteHealthTipActions.tipVotedDown, (state, { updatedTip }) => {
-    return {
-      ...state,
-      loading: false,
-      allTips: state.allTips.map((tip: IHealthTip) =>
-        tip.id === updatedTip.id ? updatedTip : tip
-      ),
-      selectedTip: updatedTip,
-    };
-  }),
-  on(loadedVoteHealthTipActions.tipVotedUP, (state, { updatedTip }) => {
-    return {
-      ...state,
-      loading: false,
-      allTips: state.allTips.map((tip: IHealthTip) =>
-        tip.id === updatedTip.id ? updatedTip : tip
-      ),
-      selectedTip: updatedTip,
-    };
-  }),
   // Remove
   on(loadRemoveHealthActions.loadRemoveHealthTip, (state) => {
     return { ...state, loading: true };
@@ -89,6 +62,20 @@ export const healthTipsReducer = createReducer(
       ...state,
       loading: false,
       allTips: [...state.allTips, { ...newTip }],
+    };
+  }),
+  //Update tip
+  on(loadUpdateHealthActions.loadUpdateHealthTip, (state) => {
+    return { ...state, loading: true };
+  }),
+  on(loadedUpdateHealthActions.updateHealthTip, (state, { updatedTip }) => {
+    return {
+      ...state,
+      loading: false,
+      allTips: state.allTips.map((tip: IHealthTip) =>
+        tip.id === updatedTip.id ? updatedTip : tip
+      ),
+      selectedTip: updatedTip,
     };
   }),
   // handle error

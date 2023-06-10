@@ -1,40 +1,9 @@
 <section class="modal-section">
-  <div class="form-container">
-    <form class="form" [formGroup]="form" (submit)="submit()">
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label> Title</mat-label>
-        <input matInput formControlName="title" required />
-        <mat-error
-          *ngIf="
-            form?.controls?.title?.touched && form?.controls?.title?.invalid
-          "
-        >
-          <span *ngIf="form?.controls?.title?.errors?.required"
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <mat-form-field class="form-field" appearance="outline">
-        <mat-label> Text </mat-label>
-        <textarea
-          matInput
-          formControlName="text"
-          placeholder="Text..."
-        ></textarea>
-        <mat-error
-          *ngIf="form?.controls?.text?.touched && form?.controls?.text?.invalid"
-        >
-          <span *ngIf="form?.controls?.text?.errors?.required"
-            >This field is mandatory.</span
-          >
-        </mat-error>
-      </mat-form-field>
-      <div class="btn-container">
-        <button mat-raised-button color="basic" (click)="onCloseModal()">
-          Cancel
-        </button>
-        <button mat-raised-button color="primary" type="submit">Submit</button>
-      </div>
-    </form>
+  <div class="form-wrapper">
+    <tip-form
+      [data]="data"
+      (submitForm)="submitForm($event)"
+      (cancel)="onCloseModal()"
+    ></tip-form>
   </div>
 </section>

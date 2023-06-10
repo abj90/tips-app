@@ -9,7 +9,7 @@ export const enum SortOrder {
 }
 
 export const enum ColumnDef {
-  DATE = 'date',
+  DATE = 'datetime',
   TITLE = 'title',
   TEXT = 'text',
   UP_VOTES = 'upVotes',

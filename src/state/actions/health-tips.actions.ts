@@ -16,24 +16,7 @@ export const loadedHealthTipsActions = createActionGroup({
     'Retrieved Health Tips List': props<{ tips: IHealthTip[] }>(),
   },
 });
-
-// Vote health tip
-export const voteHealthTipActions = createActionGroup({
-  source: 'vote Health Tip',
-  events: {
-    'Vote UP': props<{ tipId: number; vote: voteType.UP }>(),
-    'Vote Down': props<{ tipId: number; vote: voteType.DOWN }>(),
-  },
-});
-
-export const loadedVoteHealthTipActions = createActionGroup({
-  source: 'vote Health Tip',
-  events: {
-    'Tip Voted UP': props<{ updatedTip: IHealthTip }>(),
-    'Tip Voted Down': props<{ updatedTip: IHealthTip }>(),
-  },
-});
-
+// Get tip by id
 export const loadHealthTipDetailActions = createActionGroup({
   source: 'Health Tips Detail',
   events: {
@@ -48,7 +31,7 @@ export const loadedHealthTipDetailActions = createActionGroup({
   },
 });
 
-// Remove
+// Remove Tip
 export const loadRemoveHealthActions = createActionGroup({
   source: 'Remove Health Tip',
   events: {
@@ -74,6 +57,21 @@ export const loadedCreateHealthActions = createActionGroup({
   source: 'Create Health Tip',
   events: {
     'Create Health Tip': props<{ newTip: IHealthTip }>(),
+  },
+});
+
+// Update Tip
+export const loadUpdateHealthActions = createActionGroup({
+  source: 'Update Health Tip',
+  events: {
+    'Load Update Health Tip': props<{ updatedTip: IHealthTip }>(),
+  },
+});
+
+export const loadedUpdateHealthActions = createActionGroup({
+  source: 'Update Health Tip',
+  events: {
+    'Update Health Tip': props<{ updatedTip: IHealthTip }>(),
   },
 });
 

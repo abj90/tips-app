@@ -7,12 +7,35 @@
       <div (click)="goBack()" class="go-back-btn">
         <i class="fa-solid fa-arrow-left icon"></i>
       </div>
-      <div class="detail-card" *ngIf="selectedTip">
-        <h4 class="title">{{ selectedTip.title }}</h4>
-        <div class="content">
-          <p class="text">{{ selectedTip.text }}</p>
+      <div class="detail-card">
+        <div
+          class="detail-card-content"
+          *ngIf="!isUpdatedFormVisible; else editTipForm"
+        >
+          <h4 class="title">{{ selectedTip?.title }}</h4>
+          <div class="content">
+            <p class="text">{{ selectedTip?.text }}</p>
+          </div>
+          <div class="btn-container">
+            <button
+              mat-raised-button
+              color="primary"
+              (click)="showOrHideTipForm()"
+            >
+              Update Tip
+            </button>
+          </div>
         </div>
       </div>
+      <ng-template #editTipForm>
+        <div class="edit-tip-form-container">
+          <tip-form
+            [data]="selectedTip!"
+            (submitForm)="submitForm($event)"
+            (cancel)="showOrHideTipForm()"
+          ></tip-form>
+        </div>
+      </ng-template>
     </div>
   </ng-template>
 </section>

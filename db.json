@@ -1,15 +1,9 @@
 {
   "posts": [
     {
-      "id": 1,
-      "title": "PsychoTip: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard",
-      "text": "Lorem Ipsum is simply dummy text of the printing and typesetting indus",
-      "datetime": "2023-05-29T10:49:13.667705Z"
-    },
-    {
       "id": 2,
       "title": "PsychoTip: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
-      "text": "Lorem Ipsum is simply dummy text of the printing and ty",
+      "text": "Lorem Ipsum is simply dummy text of the printing and ty updated again",
       "datetime": "2023-05-29T11:12:13.668077Z"
     },
     {

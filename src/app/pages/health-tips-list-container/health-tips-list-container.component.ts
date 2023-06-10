@@ -13,17 +13,15 @@ import {
   loadHealthTipsActions,
   loadRemoveHealthActions,
 } from '../../../state/actions/health-tips.actions';
-import { isAfter, isBefore, isSameDay } from 'src/common/functions';
 import { NEW_TIP, healthTipParams } from 'src/common/constants';
 
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { AfterViewInit, ViewChild } from '@angular/core';
-import { MatSort, Sort, MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ViewChild } from '@angular/core';
+import { MatSort, Sort } from '@angular/material/sort';
 import { ColumnDef } from 'src/common/enums';
 
 import { MatDialog } from '@angular/material/dialog';
 import { CreateTipModalComponent } from 'src/app/components/create-tip-modal/create-tip-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-health-tips-list-container',
@@ -33,6 +31,7 @@ import { CreateTipModalComponent } from 'src/app/components/create-tip-modal/cre
 export class HealthTipsListContainerComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public loading$: Observable<boolean> = new Observable();
+  public loading: boolean = false;
   public dataSource$: Observable<IHealthTip[]> = new Observable();
   public displayedColumns: ColumnDef[] = [
     ColumnDef.DATE,
@@ -42,7 +41,11 @@ export class HealthTipsListContainerComponent implements OnInit {
   ];
   public requestParams = healthTipParams;
 
-  constructor(private store: Store<AppState>, public dialog: MatDialog) {}
+  constructor(
+    private store: Store<AppState>,
+    public dialog: MatDialog,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.dispatchSourData(this.requestParams);
@@ -55,7 +58,11 @@ export class HealthTipsListContainerComponent implements OnInit {
   }
 
   setLoading(): void {
-    this.loading$ = this.store.select(selectLoading);
+    this.store.select(selectLoading).subscribe({
+      next: (res) => {
+        this.loading = res;
+      },
+    });
   }
 
   setHealthTips(): void {
@@ -86,7 +93,9 @@ export class HealthTipsListContainerComponent implements OnInit {
     );
   }
 
-  updateTip(id: number): void {}
+  updateTip(id: number): void {
+    this.router.navigate(['/health-tip', id]);
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateTipModalComponent, {

@@ -12,12 +12,12 @@ import {
   loadHealthTipDetailActions,
   loadHealthTipsActions,
   loadRemoveHealthActions,
+  loadUpdateHealthActions,
   loadedCreateHealthActions,
   loadedHealthTipDetailActions,
   loadedHealthTipsActions,
   loadedRemoveHealthActions,
-  loadedVoteHealthTipActions,
-  voteHealthTipActions,
+  loadedUpdateHealthActions,
 } from '../actions/health-tips.actions';
 import { AppState, IHealthTip } from 'src/common/interfaces';
 
@@ -52,34 +52,6 @@ export class HealthTipsEffects {
     )
   );
 
-  voteUp$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(voteHealthTipActions.voteUP),
-      exhaustMap(({ tipId, vote }) => {
-        return this.healthTipsService.voteHealthTip(tipId, vote).pipe(
-          map((updatedTip: IHealthTip) =>
-            loadedVoteHealthTipActions.tipVotedUP({ updatedTip })
-          ),
-          catchError((error) => of(ApiErrorAction.apiError({ error })))
-        );
-      })
-    )
-  );
-
-  voteDown$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(voteHealthTipActions.voteDown),
-      exhaustMap(({ tipId, vote }) => {
-        return this.healthTipsService.voteHealthTip(tipId, vote).pipe(
-          map((updatedTip: IHealthTip) =>
-            loadedVoteHealthTipActions.tipVotedDown({ updatedTip })
-          ),
-          catchError((error) => of(ApiErrorAction.apiError({ error })))
-        );
-      })
-    )
-  );
-
   removeTip$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadRemoveHealthActions.loadRemoveHealthTip),
@@ -101,6 +73,21 @@ export class HealthTipsEffects {
         return this.healthTipsService.createTip(newTip).pipe(
           map((resp) =>
             loadedCreateHealthActions.createHealthTip({ newTip: resp })
+          ),
+          catchError((error) => of(ApiErrorAction.apiError({ error })))
+        );
+      })
+    )
+  );
+
+  updateTip$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadUpdateHealthActions.loadUpdateHealthTip),
+      exhaustMap(({ updatedTip }) => {
+        return this.healthTipsService.updateTip(updatedTip).pipe(
+          tap((resp) => console.log('__resp', resp)),
+          map((resp) =>
+            loadedUpdateHealthActions.updateHealthTip({ updatedTip: resp })
           ),
           catchError((error) => of(ApiErrorAction.apiError({ error })))
         );

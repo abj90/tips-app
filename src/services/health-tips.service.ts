@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, delay, tap } from 'rxjs';
+import { Observable, delay, pipe, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IHealthTip, IHealthTipParams } from 'src/common/interfaces';
 import { voteType } from 'src/common/enums';
@@ -13,9 +13,9 @@ export class HealthTipsService {
 
   getTips(param: IHealthTipParams): Observable<IHealthTip[]> {
     const params = this.getParams(param);
-    return this.http
-      .get<IHealthTip[]>(`${environment.baseUrl}/posts`, { params })
-      .pipe(delay(1000));
+    return this.http.get<IHealthTip[]>(`${environment.baseUrl}/posts`, {
+      params,
+    });
   }
 
   getParams(param: IHealthTipParams): HttpParams {
@@ -26,24 +26,15 @@ export class HealthTipsService {
         params = params.set(key.toString(), keyValue);
       }
     }
-
     return params;
   }
 
   getTipById(tipId: number): Observable<IHealthTip> {
-    return this.http.get<IHealthTip>(`api/tips/${tipId}`).pipe(delay(1000));
-  }
-
-  voteHealthTip(tipId: number, vote: voteType): Observable<IHealthTip> {
-    return this.http
-      .put<IHealthTip>(`api/tips/${tipId}/vote/${vote}`, {})
-      .pipe(delay(1000));
+    return this.http.get<IHealthTip>(`${environment.baseUrl}/posts/${tipId}`);
   }
 
   removeTip(tipId: number): Observable<any> {
-    return this.http
-      .delete<any>(`${environment.baseUrl}/posts/${tipId}`)
-      .pipe(delay(1000));
+    return this.http.delete<any>(`${environment.baseUrl}/posts/${tipId}`);
   }
 
   createTip(newTip: IHealthTip): Observable<any> {
@@ -56,5 +47,21 @@ export class HealthTipsService {
     return this.http.post<any>(`${environment.baseUrl}/posts`, body, {
       headers,
     });
+  }
+
+  updateTip(updatedTip: IHealthTip): Observable<any> {
+    const body = updatedTip;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    });
+
+    return this.http.put<any>(
+      `${environment.baseUrl}/posts/${updatedTip.id}`,
+      body,
+      {
+        headers,
+      }
+    );
   }
 }

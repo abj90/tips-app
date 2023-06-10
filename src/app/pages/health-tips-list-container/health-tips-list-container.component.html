@@ -1,12 +1,15 @@
 <section class="healt-tips-list-section">
-  <!--  <mat-spinner *ngIf="loading$ | async"></mat-spinner> -->
+  <div *ngIf="loading">
+    <loading></loading>
+  </div>
+
   <div class="actions-container">
     <search-bar (searchEvent)="onSearch($event)"></search-bar>
     <button mat-raised-button color="primary" (click)="openDialog()">
       Create Health Tip
     </button>
   </div>
-  <div class="healt-tips-list-container">
+  <div [hidden]="loading" class="healt-tips-list-container">
     <table
       mat-table
       [dataSource]="dataSource$"
@@ -14,7 +17,7 @@
       (matSortChange)="announceSortChange($event)"
       class="mat-elevation-z8"
     >
-      <ng-container matColumnDef="date">
+      <ng-container matColumnDef="datetime">
         <th
           mat-header-cell
           *matHeaderCellDef
@@ -51,7 +54,7 @@
               <span>Remove</span>
             </button>
             <button mat-menu-item (click)="updateTip(element?.id!)">
-              <mat-icon fontIcon="arrow_upward"></mat-icon>
+              <mat-icon fontIcon="update"></mat-icon>
               <span>Update</span>
             </button>
           </mat-menu>

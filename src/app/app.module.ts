@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { CreateTipModalComponent } from './components/create-tip-modal/create-tip-modal.component';
+import { TipFormComponent } from './components/tip-form/tip-form.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { CreateTipModalComponent } from './components/create-tip-modal/create-ti
     LoadingComponent,
     SearchBarComponent,
     CreateTipModalComponent,
+    TipFormComponent,
   ],
   imports: [
     BrowserModule,

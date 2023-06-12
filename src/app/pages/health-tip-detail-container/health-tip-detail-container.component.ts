@@ -81,7 +81,10 @@ export class HealthTipDetailContainerComponent implements OnInit {
 
   submitForm(updatedTip: IHealthTip): void {
     this.store.dispatch(
-      loadUpdateHealthActions.loadUpdateHealthTip({ updatedTip })
+      loadUpdateHealthActions.loadUpdateHealthTip({
+        updatedTip,
+        tipId: this.tipId,
+      })
     );
     this.showOrHideTipForm();
   }

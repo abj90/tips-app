@@ -1,15 +1,12 @@
+import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { delay } from 'rxjs/operators';
 import { HealthTipsService } from './health-tips.service';
-import healthTipsListMock from '../test/mocks/health-tip-list.mock.json';
-import healthTipMock from '../test/mocks/health-tip.mock.json';
-import { IHealthTip } from 'src/common/interfaces';
-
-import { voteType } from 'src/common/enums';
+import { environment } from 'src/environments/environment';
+import health_tips_list from '../test/mocks/health-tip-list.mock.json';
+import heakth_tip from '../test/mocks/health-tip.mock.json';
 
 describe('HealthTipsService', () => {
   let service: HealthTipsService;
@@ -32,47 +29,75 @@ describe('HealthTipsService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('getTips', () => {
-    it('should return an observable of health tips', () => {
-      const dummyTips: IHealthTip[] = healthTipsListMock;
+  it('should get tips with parameters', () => {
+    const mockParams = { q: '', _sort: 'datetime', _order: 'asc' };
 
-      service.getTips().subscribe((tips) => {
-        expect(tips.length).toBe(14);
-        expect(tips).toEqual(dummyTips);
-      });
-
-      const req = httpMock.expectOne('api/tips/random');
-      expect(req.request.method).toBe('GET');
-      req.flush(dummyTips);
+    service.getTips(mockParams).subscribe((tips) => {
+      expect(tips).toEqual(health_tips_list);
     });
+
+    const req = httpMock.expectOne(
+      `${environment.baseUrl}/posts?_sort=datetime&_order=asc`
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush(health_tips_list);
   });
 
-  describe('getTipById', () => {
-    it('should return an observable of a specific health tip', () => {
-      const dummyTip: IHealthTip = healthTipMock;
-
-      service.getTipById(3001).subscribe((tip) => {
-        expect(tip.id).toEqual(3001);
-      });
-
-      const req = httpMock.expectOne('api/tips/3001');
-      expect(req.request.method).toBe('GET');
-      req.flush(dummyTip);
+  it('should get tip by id', () => {
+    const tipId = 2;
+    service.getTipById(tipId).subscribe((tip) => {
+      expect(tip).toEqual(heakth_tip);
     });
+
+    const req = httpMock.expectOne(`${environment.baseUrl}/posts/${tipId}`);
+    expect(req.request.method).toBe('GET');
+    req.flush(heakth_tip);
   });
 
-  describe('vote HealthTip UP', () => {
-    it('should return an observable of the voted health tip', () => {
-      const dummyTip: IHealthTip = healthTipMock;
-      const dummyTipVote = voteType.UP;
+  it('should remove tip by id', () => {
+    const tipId = 2;
 
-      service.voteHealthTip(3001, dummyTipVote).subscribe((tip) => {
-        expect(tip.upVotes).toEqual(1);
-      });
+    service.removeTip(tipId).subscribe();
 
-      const req = httpMock.expectOne('api/tips/3001/vote/UP');
-      expect(req.request.method).toBe('PUT');
-      req.flush(dummyTip);
+    const req = httpMock.expectOne(`${environment.baseUrl}/posts/${tipId}`);
+    expect(req.request.method).toBe('DELETE');
+    req.flush({});
+  });
+
+  it('should create a new tip', () => {
+    const newTip = {
+      title:
+        "PsychoTip: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy",
+      text: 'Lorem Ipsum is simply dummy text of the printing and ty updated again',
+      datetime: '2023-05-29T11:12:13.668077Z',
+    };
+    const mockResponse = { id: 12, ...newTip };
+
+    service.createTip(newTip).subscribe((response) => {
+      expect(response).toEqual(mockResponse);
     });
+
+    const req = httpMock.expectOne(`${environment.baseUrl}/posts`);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(newTip);
+    req.flush(mockResponse);
+  });
+
+  it('should update an existing tip', () => {
+    const tipId = 12;
+    const updatedTip = {
+      title: 'updated Tip',
+      text: 'Lorem Ipsum updated',
+      datetime: '2023-05-29T11:12:13.668077Z',
+    };
+
+    service.updateTip(updatedTip, tipId).subscribe((response) => {
+      expect(response).toEqual(updatedTip);
+    });
+
+    const req = httpMock.expectOne(`${environment.baseUrl}/posts/${tipId}`);
+    expect(req.request.method).toBe('PUT');
+    expect(req.request.body).toEqual(updatedTip);
+    req.flush(updatedTip);
   });
 });

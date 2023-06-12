@@ -7,14 +7,12 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { MatInput } from '@angular/material/input';
 import {
   Subscription,
   debounceTime,
   distinctUntilChanged,
   filter,
   fromEvent,
-  tap,
 } from 'rxjs';
 import { KEYUP_EVENT } from 'src/common/constants';
 

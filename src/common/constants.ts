@@ -9,7 +9,6 @@ export const healthTipParams = {
 
 export const KEYUP_EVENT = 'keyup';
 export const NEW_TIP = {
-  id: '',
   title: '',
   text: '',
   datetime: '',

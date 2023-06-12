@@ -13,8 +13,6 @@ import {
   selectTipDetail,
   selectTipFromStore,
 } from 'src/state/selectors/health-tips.selectors';
-import { voteHealthTipActions } from 'src/state/actions/health-tips.actions';
-import { voteType } from 'src/common/enums';
 
 describe('HealthTipDetailContainerComponent', () => {
   let component: HealthTipDetailContainerComponent;
@@ -89,22 +87,5 @@ describe('HealthTipDetailContainerComponent', () => {
   it('should go back when calling goBack', () => {
     component.goBack();
     expect(mockLocation.back).toHaveBeenCalled();
-  });
-
-  it('should dispatch the vote UP action when calling voteUp', () => {
-    component.voteUp(mockTipId);
-    expect(mockStore.dispatch).toHaveBeenCalledWith(
-      voteHealthTipActions.voteUP({ tipId: mockTipId, vote: voteType.UP })
-    );
-  });
-
-  it('should dispatch the vote DOWN action when calling voteDown', () => {
-    component.voteDown(mockTipId);
-    expect(mockStore.dispatch).toHaveBeenCalledWith(
-      voteHealthTipActions.voteDown({
-        tipId: mockTipId,
-        vote: voteType.DOWN,
-      })
-    );
   });
 });

@@ -84,6 +84,7 @@ export class HealthTipsListContainerComponent implements OnInit {
   }
 
   onSearch(inputValue: string): void {
+    this.requestParams = { ...this.requestParams, q: inputValue };
     this.dispatchSourData({ ...this.requestParams, q: inputValue });
   }
 

@@ -83,8 +83,8 @@ export class HealthTipsEffects {
   updateTip$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadUpdateHealthActions.loadUpdateHealthTip),
-      exhaustMap(({ updatedTip }) => {
-        return this.healthTipsService.updateTip(updatedTip).pipe(
+      exhaustMap(({ updatedTip, tipId }) => {
+        return this.healthTipsService.updateTip(updatedTip, tipId).pipe(
           tap((resp) => console.log('__resp', resp)),
           map((resp) =>
             loadedUpdateHealthActions.updateHealthTip({ updatedTip: resp })

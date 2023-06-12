@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchBarComponent } from './search-bar.component';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -8,7 +12,8 @@ describe('SearchBarComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchBarComponent]
+      imports: [MatInputModule, ReactiveFormsModule, NoopAnimationsModule],
+      declarations: [SearchBarComponent],
     });
     fixture = TestBed.createComponent(SearchBarComponent);
     component = fixture.componentInstance;

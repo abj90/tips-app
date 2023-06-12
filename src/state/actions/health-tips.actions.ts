@@ -64,7 +64,10 @@ export const loadedCreateHealthActions = createActionGroup({
 export const loadUpdateHealthActions = createActionGroup({
   source: 'Update Health Tip',
   events: {
-    'Load Update Health Tip': props<{ updatedTip: IHealthTip }>(),
+    'Load Update Health Tip': props<{
+      updatedTip: IHealthTip;
+      tipId: number;
+    }>(),
   },
 });
 

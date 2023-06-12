@@ -21,7 +21,6 @@ export class TipFormComponent implements OnInit {
 
   initForm(): void {
     this.form = this.formBuilder.group({
-      id: [this.data.id, []],
       title: [this.data.title, Validators.required],
       text: [this.data.text, Validators.required],
       datetime: [this.checkDateTime(this.data.datetime), []],

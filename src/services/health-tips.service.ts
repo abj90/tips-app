@@ -49,19 +49,15 @@ export class HealthTipsService {
     });
   }
 
-  updateTip(updatedTip: IHealthTip): Observable<any> {
+  updateTip(updatedTip: IHealthTip, tipId: number): Observable<any> {
     const body = updatedTip;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
     });
 
-    return this.http.put<any>(
-      `${environment.baseUrl}/posts/${updatedTip.id}`,
-      body,
-      {
-        headers,
-      }
-    );
+    return this.http.put<any>(`${environment.baseUrl}/posts/${tipId}`, body, {
+      headers,
+    });
   }
 }

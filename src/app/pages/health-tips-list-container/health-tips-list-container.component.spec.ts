@@ -2,40 +2,41 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 
 import { HealthTipsListContainerComponent } from './health-tips-list-container.component';
-import { IHealthTip } from 'src/common/interfaces';
 import { loadHealthTipsActions } from 'src/state/actions/health-tips.actions';
 import { of } from 'rxjs';
-import {
-  selectHealthTips,
-  selectLoading,
-} from 'src/state/selectors/health-tips.selectors';
 
 import mockHealthTipsList from '../../../test/mocks/health-tip-list.mock.json';
-import mockMultipleDatesHealthTipsList from '../../../test/mocks/today-thisWeek-earlier-healthTips.mock.json';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Sort } from '@angular/material/sort';
+
+@Component({
+  selector: 'search-bar',
+  template: '',
+})
+class MockSearchBarComponent {}
 
 describe('HealthTipsListContainerComponent', () => {
   let component: HealthTipsListContainerComponent;
   let fixture: ComponentFixture<HealthTipsListContainerComponent>;
-  let mockStore: any;
+  let mockStore: jasmine.SpyObj<Store<any>>;
+  let mockDialog: jasmine.SpyObj<MatDialog>;
+  let mockRouter: jasmine.SpyObj<Router>;
 
   beforeEach(() => {
-    mockStore = {
-      select: jasmine.createSpy('select').and.callFake((selector: any) => {
-        if (selector === selectLoading) {
-          return of(false);
-        } else if (selector === selectHealthTips) {
-          return of(mockHealthTipsList);
-        } else {
-          return of({});
-        }
-      }),
-      dispatch: jasmine.createSpy('dispatch'),
-    };
+    mockStore = jasmine.createSpyObj('Store', ['dispatch', 'select']);
+    mockDialog = jasmine.createSpyObj('MatDialog', ['open']);
+    mockRouter = jasmine.createSpyObj('Router', ['navigate']);
 
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({})],
-      declarations: [HealthTipsListContainerComponent],
-      providers: [{ provide: Store, useValue: mockStore }],
+      imports: [StoreModule.forRoot({}), MatDialogModule],
+      declarations: [HealthTipsListContainerComponent, MockSearchBarComponent],
+      providers: [
+        { provide: Store, useValue: mockStore },
+        { provide: MatDialog, useValue: mockDialog },
+        { provide: Router, useValue: mockRouter },
+      ],
     }).compileComponents();
   });
 
@@ -48,77 +49,68 @@ describe('HealthTipsListContainerComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should dispatch the loadHealthTips action and set loading on ngOnInit', () => {
+  it('should dispatch loadHealthTips action on ngOnInit', () => {
+    const mockParams = {
+      q: '',
+      _sort: '',
+      _order: '',
+    };
+    component.requestParams = mockParams;
+    mockStore.select.and.returnValue(of(true));
     component.ngOnInit();
     expect(mockStore.dispatch).toHaveBeenCalledWith(
-      loadHealthTipsActions.loadHealthTips()
+      loadHealthTipsActions.loadHealthTips({ params: mockParams })
     );
-    expect(component.loading$).toBeDefined();
   });
 
-  it('should set the healthTips, todayTips, thisWeekTips, and earlierTips arrays on subscription to selectHealthTips', () => {
+  it('should set loading property based on store selectLoading', () => {
+    const mockLoading = true;
+    mockStore.select.and.returnValue(of(mockLoading));
+    component.setLoading();
+    expect(component.loading).toBe(mockLoading);
+  });
+
+  it('should set dataSource$ based on store selectHealthTips', () => {
+    const mockHealthTips = mockHealthTipsList;
+    mockStore.select.and.returnValue(of(mockHealthTips));
     component.setHealthTips();
-    expect(mockStore.select).toHaveBeenCalledWith(selectHealthTips);
-    expect(component.healthTips).toEqual(mockHealthTipsList);
-    expect(component.todayTips).toBeDefined();
-    expect(component.thisWeekTips).toBeDefined();
-    expect(component.earlierTips).toBeDefined();
+    expect(component.dataSource$).toBeDefined();
   });
 
-  it('should return the health tips for today', () => {
-    const mockHealthTips: IHealthTip[] = mockMultipleDatesHealthTipsList;
+  it('should update requestParams and dispatch loadHealthTips action on announceSortChange', () => {
+    const mockSort: Sort = { active: 'datetime', direction: 'asc' };
+    const mockParams = {
+      q: '',
+      _sort: '',
+      _order: '',
+    };
+    component.requestParams = mockParams;
+    component.announceSortChange(mockSort);
 
-    const expectedTodayTips = [
-      {
-        type: 'FamilyHealthTip',
-        id: 2000,
-        title:
-          'FamiliyTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been',
-        text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text eve",
-        upVotes: 0,
-        downVotes: 0,
-        datetime: '2023-05-30T10:04:29.397750Z',
-      },
-    ];
-    component.healthTips = mockHealthTips;
-    const result = component.getTodayTips(mockHealthTips);
-    expect(result).toEqual(expectedTodayTips);
+    expect(component.requestParams).toEqual({
+      ...mockParams,
+      _sort: mockSort.active,
+      _order: mockSort.direction,
+    });
+    expect(mockStore.dispatch).toHaveBeenCalledWith(
+      loadHealthTipsActions.loadHealthTips({ params: component.requestParams })
+    );
   });
 
-  it('should return the health tips for this week (excluding today)', () => {
-    const mockHealthTips: IHealthTip[] = mockMultipleDatesHealthTipsList;
-    const expectedThisWeekTips = [
-      {
-        type: 'FitnessHealthTip',
-        id: 3009,
-        title:
-          'FitnessTip - Lorem Ipsum is simply dummy text of the printing and typ',
-        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum',
-        upVotes: 0,
-        downVotes: 0,
-        datetime: '2023-05-29T10:23:29.399026Z',
-      },
-    ];
-    const result = component.getThisWeekTips(mockHealthTips);
-    expect(result).toEqual(expectedThisWeekTips);
-  });
+  it('should update requestParams and dispatch loadHealthTips action on onSearch', () => {
+    const inputValue = 'search query';
+    const mockParams = {
+      q: '',
+      _sort: '',
+      _order: '',
+    };
+    component.requestParams = mockParams;
 
-  it('should return the health tips before the start of the current week', () => {
-    const mockHealthTips: IHealthTip[] = mockMultipleDatesHealthTipsList;
-    const expectedEarlierTips = [
-      {
-        type: 'FamilyHealthTip',
-        id: 2013,
-        title:
-          'FamiliyTip - Lorem Ipsum is simply dummy text of the printing and typesetting industry. ',
-        text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the indu',
-        upVotes: 0,
-        downVotes: 0,
-        datetime: '2023-05-26T10:23:29.399131Z',
-      },
-    ];
-    component.healthTips = mockHealthTips;
-    const result = component.getEarlierTips(mockHealthTips);
-    expect(result).toEqual(expectedEarlierTips);
+    component.onSearch(inputValue);
+
+    expect(component.requestParams.q).toEqual(inputValue);
+    expect(mockStore.dispatch).toHaveBeenCalledWith(
+      loadHealthTipsActions.loadHealthTips({ params: component.requestParams })
+    );
   });
 });

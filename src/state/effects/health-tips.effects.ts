@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { map, exhaustMap, catchError, tap } from 'rxjs/operators';
+import { map, exhaustMap, catchError } from 'rxjs/operators';
 
 import { HealthTipsService } from 'src/services/health-tips.service';
 import {
@@ -85,7 +84,6 @@ export class HealthTipsEffects {
       ofType(loadUpdateHealthActions.loadUpdateHealthTip),
       exhaustMap(({ updatedTip, tipId }) => {
         return this.healthTipsService.updateTip(updatedTip, tipId).pipe(
-          tap((resp) => console.log('__resp', resp)),
           map((resp) =>
             loadedUpdateHealthActions.updateHealthTip({ updatedTip: resp })
           ),
@@ -97,7 +95,6 @@ export class HealthTipsEffects {
 
   constructor(
     private actions$: Actions,
-    private healthTipsService: HealthTipsService,
-    private store$: Store<AppState>
+    private healthTipsService: HealthTipsService
   ) {}
 }
